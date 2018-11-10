@@ -1,0 +1,13 @@
+---
+- name: Install nginx
+  apt: "name='nginx' state=present force=yes"
+- name: copy nginx config of project
+  template: "src=nginx.j2 dest=/etc/nginx/Django-TDD.conf"
+- name: copy nginx conf from sites-available to sites-enabled
+  file: "src=/etc/nginx/Django-TDD.conf dest=/usr/share/nginx/html/Django-TDD.conf state=link"
+- name: copy nginx conf from sites-available to sites-enabled
+  file: "src=/etc/nginx/Django-TDD.conf dest=/etc/nginx/sites-enabled/Django-TDD.conf state=link"
+- name: create project log directory
+  file: "path=/home/Django-TDD/logs state=directory"
+- name: start nginx
+  service: "name=nginx state=started"

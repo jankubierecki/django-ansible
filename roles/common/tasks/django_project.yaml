@@ -1,0 +1,40 @@
+---
+
+- name: install required apt packages
+  apt:
+    name: '{{ item }}'
+    state: present
+    update_cache: yes
+    force: yes
+  
+  with_items:
+    - python-dev
+    - python-virtualenv
+    - python3-pip
+    - openjdk-7-jre-headless
+    - libjpeg8-dev
+    - zlib1g-dev
+    - libfreetype6-dev
+    - liblcms2-dev
+    - libwebp-dev
+    - libtiff-dev
+    - tcl-dev
+    - tk-dev
+    - python-tk
+    - redis-server
+    - git
+    - ruby
+
+- name: clone git repo
+  git: 
+    repo: https://github.com/jankubierecki/Django-TDD
+    dest: /home/ubuntu/Django-TDD/ 
+
+- name: create virtualenv and install django in it
+  pip: 
+    requirements: /home/ubuntu/Django-TDD/requirements.txt 
+    virtualenv: /home/ubuntu/Django-TDD/.venv 
+    virtualenv_python: /usr/bin/python3.4
+
+
+

@@ -1,0 +1,21 @@
+---
+- name: Install python-dev
+  apt: "name='python-dev' state=present force=yes"
+- name: Install python-pip
+  apt: "name='python-pip' state=present force=yes"
+- name: install uwsgi
+  pip: name=uwsgi
+- name: Install supervisor
+  apt: name=supervisor state=present force=yes
+- name: Create UWSGI vassals directory
+  file: "path=/etc/uwsgi/vassals state=directory"
+- name: setup uwsgi in supervisor
+  template: "src=uwsgi-server.j2 dest=/etc/uwsgi-runner.conf"
+- name: update supervisor
+  shell: supervisorctl reload
+- name: setup project uwsgi configuration file
+  template: "src=uwsgi.j2 dest=/home/ubuntu/Django-TDD/Django-TDD_uwsgi.ini"
+- name: create a symlink of uwsgi in vassals
+  file: "src=/home/ubuntu/Django-TDD/Django-TDD_uwsgi.ini dest=/etc/uwsgi/vassals/Django-TDD_uwsgi.ini state=link"
+- name: touch the symlink file
+  command: "touch /etc/uwsgi/vassals/Django-TDD_uwsgi.ini"

@@ -1,0 +1,12 @@
+---
+
+- hosts: ubuntu_server
+  remote_user: root
+  become: yes
+  tasks:
+    - import_tasks: ./roles/common/tasks/update_ubuntu.yaml
+    - import_tasks: ./roles/common/tasks/django_project.yaml
+    - import_tasks: ./roles/common/tasks/uwsgi_django_setup.yaml
+    - import_tasks: ./roles/common/tasks/nginx_django_setup.yaml
+
+    

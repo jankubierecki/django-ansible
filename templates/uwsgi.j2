@@ -1,0 +1,11 @@
+[uwsgi]
+chdir           = /home/ubuntu/Django-TDD/Django-TDD/
+module          = Django-TDD.wsgi
+home            = /home/ubuntu/Django-TDD/envs
+master          = true
+processes       = 4
+socket          = /home/ubuntu/Django-TDD/Django-TDD.sock
+chmod-socket    = 666
+vacuum          = true
+harakiri        = 60
+max-requests    = 5000
